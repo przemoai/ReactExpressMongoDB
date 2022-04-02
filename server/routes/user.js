@@ -70,7 +70,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 })
 
 //GET USER STATS
-
+//Returns users registered per month from last year
 router.get("/stats",verifyTokenAndAdmin, async (req,res)=>{
     const date = new Date();
     const lastYear = new Date(date.setFullYear(date.getFullYear()-1))

@@ -1,13 +1,12 @@
 {
   "name": "shopapp",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon ./server/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "przemoai",
   "license": "ISC",
   "dependencies": {
     "crypto-js": "^4.1.1",
@@ -16,5 +15,15 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.9",
     "nodemon": "^2.0.15"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/przemoai/ReactExpressMongoDB.git"
+  },
+  "bugs": {
+    "url": "https://github.com/przemoai/ReactExpressMongoDB/issues"
+  },
+  "homepage": "https://github.com/przemoai/ReactExpressMongoDB#readme",
+  "description": ""
 }
