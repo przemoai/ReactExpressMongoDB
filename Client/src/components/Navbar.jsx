@@ -1,5 +1,7 @@
 import { Badge } from "@material-ui/core";
-import { ShoppingCartOutlined } from "@material-ui/icons";
+import { ShoppingCartOutlined, Logout  } from "@material-ui/icons";
+import LogoutIcon from '@material-ui/icons'
+
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -65,7 +67,11 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          
+        <MenuItem>
+           
+              <LogoutIcon />
+            
+          </MenuItem>
           
         </Left>
         <Center>

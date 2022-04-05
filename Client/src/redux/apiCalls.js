@@ -10,3 +10,7 @@ export const login = async (dispatch, user)=>{
         dispatch(loginFailure())
     }
 }
+
+export const logout = async ()=>{
+    localStorage.removeItem("persist:root");
+}
