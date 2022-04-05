@@ -1,12 +1,12 @@
-import { Badge } from "@material-ui/core";
-import { ShoppingCartOutlined, Logout  } from "@material-ui/icons";
-import LogoutIcon from '@material-ui/icons'
-
+import { Badge, } from "@material-ui/core";
+import { ShoppingCartOutlined } from "@material-ui/icons";
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
+import { logout } from "../redux/apiCalls";
 
 const Container = styled.div`
   background-color: #0A1A29;
@@ -55,39 +55,42 @@ const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
+  text-decoration: none;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
 
 
 const Navbar = () => {
-  const quantity = useSelector(state=>state.cart.quantity)  
-  const user = useSelector((state)=>state.user.currentUser)
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    logout()
+  }
+
+  const quantity = useSelector(state => state.cart.quantity)
+  const user = useSelector((state) => state.user.currentUser)
   return (
     <Container>
       <Wrapper>
         <Left>
-        <MenuItem>
-           
-              <LogoutIcon />
-            
+          <MenuItem>
+            {user && <ExitToAppOutlinedIcon onClick={handleClick} />}
           </MenuItem>
-          
+
         </Left>
         <Center>
-        <Link to="/" style={{textDecoration:"none"}}><Logo>Shopp</Logo></Link>
+          <Link to="/" style={{ textDecoration: "none" }}><Logo>Shopp</Logo></Link>
         </Center>
         <Right>
-          {!user &&  <Link to="/register" style={{textDecoration:"none"}}><MenuItem>REGISTER</MenuItem></Link>}          
-          {!user &&  <Link to="/login" style={{textDecoration:"none"}}><MenuItem>SIGN IN</MenuItem></Link> }
-         
-          
+          {!user && <Link to="/register" style={{ textDecoration: "none" }}><MenuItem>REGISTER</MenuItem></Link>}
+          {!user && <Link to="/login" style={{ textDecoration: "none" }}><MenuItem>SIGN IN</MenuItem></Link>}
           <Link to="/cart">
-          <MenuItem>
-            <Badge badgeContent={quantity} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
-          </MenuItem>
+            <MenuItem>
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartOutlined />
+              </Badge>
+            </MenuItem>
           </Link>
         </Right>
       </Wrapper>

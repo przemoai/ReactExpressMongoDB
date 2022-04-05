@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom"
-
+import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 
 const Container = styled.div`
   width: 100vw;
@@ -26,11 +26,20 @@ const Wrapper = styled.div`
   background-color: white;
   ${mobile({ width: "75%" })}
 `;
-
+const TitleWrapper = styled.div`
+  display: flex;
+`
 const Title = styled.h1`
+  flex:1;
   font-size: 24px;
   font-weight: 300;
 `;
+const BackButton = styled.h1`
+    
+    font-size: 24px;
+    font-weight: 300;
+    align-items: flex-end;
+`
 
 const Form = styled.form`
   display: flex;
@@ -82,8 +91,12 @@ const Login = () => {
 
   return (
     <Container>
+
       <Wrapper>
-        <Title>SIGN IN</Title>
+        <TitleWrapper>
+          <Title>SIGN IN</Title>
+          <BackButton><Link to="/"><ArrowBackIosOutlinedIcon/></Link></BackButton>
+        </TitleWrapper>
         <Form>
           <Input placeholder="username" onChange={(e) => setUsername(e.target.value)} />
           <Input placeholder="password" onChange={(e) => setPassword(e.target.value)} />
@@ -92,7 +105,7 @@ const Login = () => {
           <Option><Link to="/">DO NOT YOU REMEMBER THE PASSWORD?</Link></Option>
           <Option> <Link to="/register">CREATE A NEW ACCOUNT</Link></Option>
         </Form>
-        
+
       </Wrapper>
     </Container>
   );

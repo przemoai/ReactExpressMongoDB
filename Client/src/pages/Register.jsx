@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
-
+import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
+import {Link} from 'react-router-dom'
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -21,11 +22,21 @@ const Wrapper = styled.div`
   background-color: white;
   ${mobile({ width: "75%" })}
 `;
-
+const TitleWrapper = styled.div`
+  display: flex;
+`
 const Title = styled.h1`
+  flex:1;
   font-size: 24px;
   font-weight: 300;
 `;
+
+const BackButton = styled.h1`
+    
+    font-size: 24px;
+    font-weight: 300;
+    align-items: flex-end;
+`
 
 const Form = styled.form`
   display: flex;
@@ -57,7 +68,10 @@ const Register = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
+      <TitleWrapper>
+          <Title>REGISTER</Title>
+          <BackButton><Link to="/"><ArrowBackIosOutlinedIcon/></Link></BackButton>
+        </TitleWrapper>
         <Form>
           <Input placeholder="name" />
           <Input placeholder="last name" />

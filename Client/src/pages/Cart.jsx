@@ -5,6 +5,10 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom"
+import { clearCart } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
+
 
 const Container = styled.div``;
 
@@ -154,8 +158,20 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
+
+
 const Cart = () => {
-  const cart = useSelector(state=>state.cart)
+  const quantity = useSelector(state => state.cart.quantity)
+  const cart = useSelector(state => state.cart)
+
+  //const clearCart = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).cart)
+  const dispatch = useDispatch()
+
+  const handleClick = () => {
+    dispatch(clearCart())
+
+  }
+
   return (
     <Container>
       <Navbar />
@@ -163,44 +179,45 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <TopButton><Link to="/" style={{ textDecoration: "none" }}>Kontynuuj zakupy</Link></TopButton>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist (0)</TopText>
+            <TopText>Koszyk({quantity})</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+
+          <TopButton type="filled" onClick={handleClick}>Wyczyść koszyk</TopButton>
+
         </Top>
         <Bottom>
           <Info>
-            {cart.products.map(product=>(
+            {cart.products.map(product => (
 
-            <Product>
-              <ProductDetail>
-                <Image src={product.img} />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> {product.title}
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> {product._id}
-                  </ProductId>
-                  <ProductColor color={product.color} />
-                  <ProductSize>
-                    <b>Size:</b> {product.size}
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>{product.quantity}</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$ {product.price*product.quantity}</ProductPrice>
-              </PriceDetail>
-            </Product>
+              <Product>
+                <ProductDetail>
+                  <Image src={product.img} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b> {product.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b> {product._id}
+                    </ProductId>
+                    <ProductColor color={product.color} />
+                    <ProductSize>
+                      <b>Size:</b> {product.size}
+                    </ProductSize>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <Add />
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <Remove />
+                  </ProductAmountContainer>
+                  <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
+                </PriceDetail>
+              </Product>
             ))}
-            <Hr />            
+            <Hr />
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>

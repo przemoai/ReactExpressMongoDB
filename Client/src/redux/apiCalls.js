@@ -1,16 +1,30 @@
-import { publicRequest } from "../requestMethods"
-import { loginStart, loginFailure, loginSuccess } from "./userRedux"
+import {
+    publicRequest
+} from "../requestMethods"
+import {
+    loginStart,
+    loginFailure,
+    loginSuccess,
+} from "./userRedux"
 
-export const login = async (dispatch, user)=>{
+export const login = async (dispatch, user) => {
     dispatch(loginStart())
-    try{
-        const res = await publicRequest.post("/auth/login",user)
+    try {
+        const res = await publicRequest.post("/auth/login", user)
         dispatch(loginSuccess(res.data))
-    }catch(err){
+    } catch (err) {
         dispatch(loginFailure())
     }
 }
+export const logout = () => {     
+    try{
+        localStorage.clear();
+        window.location.reload(true);
 
-export const logout = async ()=>{
-    localStorage.removeItem("persist:root");
+    }catch(err){
+        console.log(err)
+    }
+    
+        
+    
 }
