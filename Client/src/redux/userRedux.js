@@ -3,8 +3,8 @@ import {
 } from "@reduxjs/toolkit"
 
 
-const successInfo = "Zarejestrowano";
-const errorInfo = "Email lub nazwa uzytkownika jest już zajęta";
+const successInfo = "Zarejestrowano, przekierowanie za 2s";
+
 
 const userSlice = createSlice({
     name: "user",
@@ -36,11 +36,11 @@ const userSlice = createSlice({
             state.isFetching = false;
             state.messageSucces= successInfo; 
             state.messageFails= null; 
-                                            
+
         },
-        registerFailure: (state) => {
+        registerFailure: (state,action) => {
             state.isFetching = false;
-            state.messageFail= errorInfo;
+            state.messageFail= action.payload.error;
             state.messageSucces= null; 
             
         },         

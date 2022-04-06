@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react";
 import { mobile } from "../responsive";
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { register } from "../redux/apiCalls";
 
 const Container = styled.div`
@@ -91,78 +91,60 @@ flex:1;
 
 
 const Register = () => {
-  
+
   const [name, setName] = useState(null)
   const [lastname, setLastname] = useState(null)
   const [username, setUsername] = useState(null)
   const [password, setPassword] = useState(null)
-  const [email, setEmail] = useState(null); 
-  const [passwordAgain, setPasswordAgain] = useState(null);   
+  const [email, setEmail] = useState(null);
+  const [passwordAgain, setPasswordAgain] = useState(null);
   const [error, setError] = useState(null);
   const dispatch = useDispatch()
-  const { isFetching, messageSucces, messageFail} = useSelector((state) => state.user)
-  
+  const { isFetching, messageSucces, messageFail } = useSelector((state) => state.user)
+
   const isValid = email != null && email.trim().length > 0;
   const handleClick = async (e) => {
     e.preventDefault();
-    if(password !== passwordAgain){
-      setError("Hasła nie są takie same")      
-     }           
-    else{
-      register(dispatch, {name,lastname,username,email,password})
-      setError(null)
+    if (password !== passwordAgain) {
+      setError("Hasła nie są takie same")
     }
-    //console.log(message)
+    else {
+      setError(null)
+      register(dispatch, { name, lastname, username, email, password })
 
-    //Axios login
-    // if (passwordAgain.current.value !== password.current.value) {
-    //   passwordAgain.current.setCustomValidity("Passwords don't match!");
-    // } else {
-    //   const user = {
-    //     name: name.current.value,
-    //     lastname: lastname.current.value,
-    //     username: username.current.value,
-    //     email: email.current.value,
-    //     password: password.current.value,
-    //   };
-    //   try {
-    //     await axios.post("http://localhost:5000/api/auth/register", user);
-        
-    //   } catch (err) {        
-    //       console.log(err.response.data)
-    //       setError(err.response.data)
-    //   }
-    // }
-  };
 
-  
+    }
+
+};
+
+
 
   return (
     <Container>
       <Wrapper>
-      <TitleWrapper>
+        <TitleWrapper>
           <Title>REGISTER</Title>
-          <BackButton><Link to="/"><ArrowBackIosOutlinedIcon/></Link></BackButton>
+          <BackButton><Link to="/"><ArrowBackIosOutlinedIcon /></Link></BackButton>
         </TitleWrapper>
         <Form onSubmit={handleClick}>
-          <Input placeholder="name" type="text"  required onChange={(e) => setName(e.target.value)}/>
-          <Input placeholder="last name" type="text"  required onChange={(e) => setLastname(e.target.value)}/>
-          <Input placeholder="username" type="text"  required onChange={(e) => setUsername(e.target.value)}/>          
-          <Input placeholder="email" type="mail"  required onChange={(e) => setEmail(e.target.value)}/>          
-          <Input placeholder="password" type="text"  required onChange={(e) => setPassword(e.target.value)}/>
-          <Input placeholder="confirm password" type="text"  required onChange={(e) => setPasswordAgain(e.target.value)}/>          
+          <Input placeholder="name" type="text" required onChange={(e) => setName(e.target.value)} />
+          <Input placeholder="last name" type="text" required onChange={(e) => setLastname(e.target.value)} />
+          <Input placeholder="username" type="text" required onChange={(e) => setUsername(e.target.value)} />
+          <Input placeholder="email" type="mail" required onChange={(e) => setEmail(e.target.value)} />
+          <Input placeholder="password" type="text" required onChange={(e) => setPassword(e.target.value)} />
+          <Input placeholder="confirm password" type="text" required onChange={(e) => setPasswordAgain(e.target.value)} />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
-            
+
           </Agreement>
-          
-          <Button onClick={handleClick} disabled={isFetching || !isValid}>CREATE</Button> 
-          
+
+          <Button onClick={handleClick} disabled={isFetching || !isValid}>CREATE</Button>
+
           <TitleWrapper>
-          <InfoBox>{error && <Error>{error}</Error>}    </InfoBox>
-          <InfoBox>{messageSucces!==null && <Succes>{messageSucces}</Succes>} </InfoBox>       
-          <InfoBox>{messageFail!==null && <Error>{messageFail}</Error>} </InfoBox>       
+            <InfoBox>{error && <Error>{error}</Error>}    </InfoBox>
+            <InfoBox>{messageSucces !== null && <Succes>{messageSucces}</Succes>} </InfoBox>
+            <InfoBox>{messageFail !== null && <Error>{JSON.stringify(messageFail).slice(1,-1)}</Error>} </InfoBox>
           </TitleWrapper>
         </Form>
       </Wrapper>

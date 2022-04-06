@@ -22,6 +22,10 @@ export const register = async (dispatch,user) => {
     try{
         const res = await publicRequest.post("/auth/register", user)
         dispatch(registerSuccess(res.data))
+        setTimeout( () =>{
+            login(dispatch, user)
+        }, 2000);
+        
     }catch(err){
         dispatch(registerFailure(err.response.data))
         console.log(err.response.data)

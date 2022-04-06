@@ -24,11 +24,11 @@ router.post("/register", async (req, res) => {
     })
     if (userNameExist) {
       return res.status(476).json({
-        error: "Nazwa użytkownika jest już zajęty"
+        error: "Nazwa użytkownika jest już zajęta"
       });
     } else if (userMailExist) {
       return res.status(477).json({
-        error: "Email jest już zajęta"
+        error: "Email jest już zajęty"
       });
     } else {
       const savedUser = await newUser.save();
