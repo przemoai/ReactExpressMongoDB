@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react";
 import { mobile } from "../responsive";
@@ -101,20 +100,14 @@ const Register = () => {
   const [passwordAgain, setPasswordAgain] = useState(null);   
   const [error, setError] = useState(null);
   const dispatch = useDispatch()
-  const { isFetching, message} = useSelector((state) => state.user)
+  const { isFetching, messageSucces, messageFail} = useSelector((state) => state.user)
+  
   const isValid = email != null && email.trim().length > 0;
   const handleClick = async (e) => {
     e.preventDefault();
     if(password !== passwordAgain){
-      setError("Hasła nie są takie same")
-      
-     }
-    //else if(await User.findOne({ email: email })){
-    //   setError("Mail jest już zajęty")
-    // }
-    // else if(await User.findOne({ username: username })){
-    //   setError("Nazwa użytkownika jest już zajęta")
-    // }         
+      setError("Hasła nie są takie same")      
+     }           
     else{
       register(dispatch, {name,lastname,username,email,password})
       setError(null)
@@ -168,7 +161,8 @@ const Register = () => {
           
           <TitleWrapper>
           <InfoBox>{error && <Error>{error}</Error>}    </InfoBox>
-          <InfoBox>{message!==null && <Succes>{message}</Succes>} </InfoBox>       
+          <InfoBox>{messageSucces!==null && <Succes>{messageSucces}</Succes>} </InfoBox>       
+          <InfoBox>{messageFail!==null && <Error>{messageFail}</Error>} </InfoBox>       
           </TitleWrapper>
         </Form>
       </Wrapper>

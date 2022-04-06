@@ -3,13 +3,17 @@ import {
 } from "@reduxjs/toolkit"
 
 
+const successInfo = "Zarejestrowano";
+const errorInfo = "Email lub nazwa uzytkownika jest już zajęta";
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
         currentUser: null,              
         isFetching: false,
         error: false,
-        message: false
+        messageSucces: false,
+        messageFail: false,
     },
     reducers: {
         loginStart: (state) => {
@@ -25,15 +29,19 @@ const userSlice = createSlice({
         },
         registerStart: (state) => {
             state.isFetching = true;
-            state.message = false;
+            state.messageSuccess = null;
+            state.messageFail = null;
         },
         registerSuccess: (state) => {
-            state.isFetching = false;  
-            state.message = "Pomyślnie utworzono konto"                     
+            state.isFetching = false;
+            state.messageSucces= successInfo; 
+            state.messageFails= null; 
+                                            
         },
         registerFailure: (state) => {
             state.isFetching = false;
-            
+            state.messageFail= errorInfo;
+            state.messageSucces= null; 
             
         },         
     },

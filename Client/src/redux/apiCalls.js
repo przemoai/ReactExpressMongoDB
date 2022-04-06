@@ -23,7 +23,9 @@ export const register = async (dispatch,user) => {
         const res = await publicRequest.post("/auth/register", user)
         dispatch(registerSuccess(res.data))
     }catch(err){
-        dispatch(registerFailure())
+        dispatch(registerFailure(err.response.data))
+        console.log(err.response.data)
+        
     }        
 
 }
