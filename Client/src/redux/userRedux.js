@@ -6,9 +6,10 @@ import {
 const userSlice = createSlice({
     name: "user",
     initialState: {
-        currentUser: null,
+        currentUser: null,              
         isFetching: false,
-        error: false
+        error: false,
+        message: false
     },
     reducers: {
         loginStart: (state) => {
@@ -21,14 +22,30 @@ const userSlice = createSlice({
         loginFailure: (state) => {
             state.isFetching = false;
             state.error = true;
-        },        
+        },
+        registerStart: (state) => {
+            state.isFetching = true;
+            state.message = false;
+        },
+        registerSuccess: (state) => {
+            state.isFetching = false;  
+            state.message = "Pomyślnie utworzono konto"                     
+        },
+        registerFailure: (state) => {
+            state.isFetching = false;
+            
+            
+        },         
     },
 })
 
 export const {
     loginStart,
     loginSuccess,
-    loginFailure,    
+    loginFailure, 
+    registerStart,
+    registerSuccess,
+    registerFailure   
 } = userSlice.actions
 
 export default userSlice.reducer;

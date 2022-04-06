@@ -2,9 +2,8 @@ import {
     publicRequest
 } from "../requestMethods"
 import {
-    loginStart,
-    loginFailure,
-    loginSuccess,
+    loginStart,loginFailure,loginSuccess,
+    registerStart,registerSuccess,registerFailure
 } from "./userRedux"
 
 export const login = async (dispatch, user) => {
@@ -16,6 +15,20 @@ export const login = async (dispatch, user) => {
         dispatch(loginFailure())
     }
 }
+
+export const register = async (dispatch,user) => {
+    dispatch(registerStart())    
+    console.log(user)
+    try{
+        const res = await publicRequest.post("/auth/register", user)
+        dispatch(registerSuccess(res.data))
+    }catch(err){
+        dispatch(registerFailure())
+    }        
+
+}
+
+
 export const logout = () => {     
     try{
         localStorage.clear();
@@ -25,6 +38,7 @@ export const logout = () => {
         console.log(err)
     }
     
-        
+ 
+
     
 }
