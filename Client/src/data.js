@@ -25,21 +25,21 @@ export const sliderItems = [
   export const categories = [
     {
       id: 1,
-      img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "SHIRT STYLE!",
-      cat:"women"
+      img: "https://cdn.mos.cms.futurecdn.net/6wzmNvDKDQXkzQCGvsw3KR.jpg",
+      title: "MYSZKI",
+      cat:"mouse"
     },
     {
       id: 2,
-      img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "LOUNGEWEAR LOVE",
-      cat:"men"
+      img: "https://cdn.mos.cms.futurecdn.net/HqT3HPGT6JUkTKLw4ryd95.jpg",
+      title: "KLAWIATURY",
+      cat:"keyboard"
     },
     {
       id: 3,
-      img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      title: "LIGHT JACKETS",
-      cat:"kids"
+      img: "https://media.steelseriescdn.com/thumbs/filer_public/d3/c4/d3c419a0-df9c-4faa-8ad5-82fda0ced7f1/1200x_buy_qck-prism_m_01.jpg__1920x1080_q100_crop-fit_optimize_subsampling-2.jpg",
+      title: "PODKLADKI",
+      cat:"mousepad"
     },
   ];
 

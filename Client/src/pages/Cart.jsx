@@ -90,6 +90,7 @@ const ProductColor = styled.div`
   height: 20px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
+  border: 1px solid #000000;
 `;
 
 const ProductSize = styled.span``;
@@ -164,7 +165,17 @@ const Cart = () => {
   const quantity = useSelector(state => state.cart.quantity)
   const cart = useSelector(state => state.cart)
 
-  //const clearCart = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).cart)
+  let shippingCost = 9.99 
+  let shippingDiscount = 0
+  if(cart.total>300){
+    shippingDiscount=shippingCost;
+    shippingCost=0;
+  }else{
+    shippingDiscount=0
+    shippingCost=9.99
+  }
+  
+  
   const dispatch = useDispatch()
 
   const handleClick = () => {
@@ -177,7 +188,7 @@ const Cart = () => {
       <Navbar />
       <Announcement />
       <Wrapper>
-        <Title>YOUR BAG</Title>
+        <Title>Twój koszyk</Title>
         <Top>
           <TopButton><Link to="/" style={{ textDecoration: "none" }}>Kontynuuj zakupy</Link></TopButton>
           <TopTexts>
@@ -196,15 +207,15 @@ const Cart = () => {
                   <Image src={product.img} />
                   <Details>
                     <ProductName>
-                      <b>Product:</b> {product.title}
+                      <b>Produkt:</b> {product.title}
                     </ProductName>
                     <ProductId>
                       <b>ID:</b> {product._id}
                     </ProductId>
                     <ProductColor color={product.color} />
-                    <ProductSize>
+                    {/* <ProductSize>
                       <b>Size:</b> {product.size}
-                    </ProductSize>
+                    </ProductSize> */}
                   </Details>
                 </ProductDetail>
                 <PriceDetail>
@@ -213,31 +224,31 @@ const Cart = () => {
                     <ProductAmount>{product.quantity}</ProductAmount>
                     <Remove />
                   </ProductAmountContainer>
-                  <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
+                  <ProductPrice>{product.price * product.quantity} zł</ProductPrice>
                 </PriceDetail>
               </Product>
             ))}
             <Hr />
           </Info>
           <Summary>
-            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+            <SummaryTitle>Podsumowanie koszyka</SummaryTitle>
             <SummaryItem>
-              <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemText>Suma</SummaryItemText>
+              <SummaryItemPrice>{cart.total} zł</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+              <SummaryItemText>Koszta dostawy</SummaryItemText>                         
+              <SummaryItemPrice>{shippingCost} zł</SummaryItemPrice>              
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+              <SummaryItemText>Zniżka</SummaryItemText>
+              <SummaryItemPrice>{shippingDiscount} zł</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
-              <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemText>Suma</SummaryItemText>
+              <SummaryItemPrice>{cart.total} zł</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <Button>Zapłać</Button>
           </Summary>
         </Bottom>
       </Wrapper>

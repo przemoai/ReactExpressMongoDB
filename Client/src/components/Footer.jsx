@@ -9,6 +9,7 @@ import {
 } from "@material-ui/icons";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   background-color: #0A1A29;
@@ -91,9 +92,16 @@ const Payment = styled.img`
     width: 50%;
 `;
 
-
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color:white;
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`;
 
 const Footer = () => {
+  
   return (
     <Container>
    <Left>
@@ -105,7 +113,7 @@ const Footer = () => {
       </Desc>
       <SocialContainer>
          <SocialIcon color="3B5999">
-            <Facebook />
+              <Facebook />
          </SocialIcon>
          <SocialIcon color="E4405F">
             <Instagram />
@@ -119,30 +127,27 @@ const Footer = () => {
       </SocialContainer>
    </Left>
    <Center>
-      <Title>Useful Links</Title>
+      <Title>Przydatne linki</Title>
       <List>
-         <ListItem>Home</ListItem>
-         <ListItem>Cart</ListItem>
-         <ListItem>Man Fashion</ListItem>
-         <ListItem>Woman Fashion</ListItem>
-         <ListItem>Accessories</ListItem>
-         <ListItem>My Account</ListItem>
-         <ListItem>Order Tracking</ListItem>
-         <ListItem>Wishlist</ListItem>
-         <ListItem>Wishlist</ListItem>
-         <ListItem>Terms</ListItem>
+         <ListItem><StyledLink to="/" >Strona główna</StyledLink></ListItem>
+         <ListItem><StyledLink to="/cart" >Koszyk</StyledLink></ListItem>
+         <ListItem><StyledLink to="/products/mouse" >Myszki</StyledLink></ListItem>
+         <ListItem><StyledLink to="/products/keyboard" >Klawiatury</StyledLink></ListItem>
+         <ListItem><StyledLink to="/products/mousepad" >Podkładki</StyledLink></ListItem>
+         <ListItem>Moje konto</ListItem>      
+         
       </List>
    </Center>
    <Right>
-      <Title>Contact</Title>
+      <Title>Kontakt</Title>
       <ContactItem>
-         <Room style={{ marginRight: "10px" }} /> 622 Dixie Path , South Tobinchester 98336
+         <Room style={{ marginRight: "10px" }} /> Lublin, Nadbystrzycka XYZ
       </ContactItem>
       <ContactItem>
          <Phone style={{ marginRight: "10px" }} /> +1 234 56 78
       </ContactItem>
       <ContactItem>
-         <MailOutline style={{ marginRight: "10px" }} /> contact@lama.dev
+         <MailOutline style={{ marginRight: "10px" }} /> info@shopp.pl
       </ContactItem>
       <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
    </Right>

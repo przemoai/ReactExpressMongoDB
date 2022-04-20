@@ -144,7 +144,7 @@ const Register = () => {
           <TitleWrapper>
             <InfoBox>{error && <Error>{error}</Error>}    </InfoBox>
             <InfoBox>{messageSucces !== null && <Succes>{messageSucces}</Succes>} </InfoBox>
-            <InfoBox>{messageFail !== null && <Error>{JSON.stringify(messageFail).slice(1,-1)}</Error>} </InfoBox>
+            <InfoBox>{messageFail !== (false || null)  && <Error>{JSON.stringify(messageFail).slice(1,-1)}</Error>} </InfoBox>
           </TitleWrapper>
         </Form>
       </Wrapper>

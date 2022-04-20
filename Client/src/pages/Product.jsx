@@ -76,6 +76,7 @@ const FilterColor = styled.div`
   background-color: ${(props) => props.color};
   margin: 0px 5px;
   cursor: pointer;
+  border: 1px solid #000000;
 `;
 
 const FilterSize = styled.select`
@@ -181,7 +182,7 @@ const Product = () => {
               ))}
 
             </Filter>
-            <Filter>
+            {/* <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize onChange={(e) => setSize(e.target.value)}>
 
@@ -190,7 +191,7 @@ const Product = () => {
                 ))}
 
               </FilterSize>
-            </Filter>
+            </Filter> */}
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
@@ -198,7 +199,7 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
+            <Button onClick={handleClick}>Dodaj do koszyka</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

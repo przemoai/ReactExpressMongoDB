@@ -83,8 +83,8 @@ const Navbar = () => {
           <Link to="/" style={{ textDecoration: "none" }}><Logo>Shopp</Logo></Link>
         </Center>
         <Right>
-          {!user && <Link to="/register" style={{ textDecoration: "none" }}><MenuItem>REGISTER</MenuItem></Link>}
-          {!user && <Link to="/login" style={{ textDecoration: "none" }}><MenuItem>SIGN IN</MenuItem></Link>}
+          {!user && <Link to="/register" style={{ textDecoration: "none" }}><MenuItem>ZAŁÓŻ KONTO</MenuItem></Link>}
+          {!user && <Link to="/login" style={{ textDecoration: "none" }}><MenuItem>ZALOGUJ SIĘ</MenuItem></Link>}
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
