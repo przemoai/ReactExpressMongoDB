@@ -44,6 +44,7 @@ const BackButton = styled.h1`
 
 const Form = styled.form`
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
 `;
 
@@ -60,6 +61,7 @@ const Agreement = styled.span`
 `;
 
 const Button = styled.button`  
+  margin-top: 1%;
   width: 40%;
   border: none;
   padding: 15px 20px;
@@ -127,16 +129,16 @@ const Register = () => {
           <BackButton><Link to="/"><ArrowBackIosOutlinedIcon /></Link></BackButton>
         </TitleWrapper>
         <Form onSubmit={handleClick}>
-          <Input placeholder="name" type="text" required onChange={(e) => setName(e.target.value)} />
-          <Input placeholder="last name" type="text" required onChange={(e) => setLastname(e.target.value)} />
-          <Input placeholder="username" type="text" required onChange={(e) => setUsername(e.target.value)} />
+          <Input placeholder="imię" type="text" required onChange={(e) => setName(e.target.value)} />
+          <Input placeholder="nazwisko" type="text" required onChange={(e) => setLastname(e.target.value)} />
+          <Input placeholder="login" type="text" required onChange={(e) => setUsername(e.target.value)} />
           <Input placeholder="email" type="mail" required onChange={(e) => setEmail(e.target.value)} />
-          <Input placeholder="password" type="text" required onChange={(e) => setPassword(e.target.value)} />
-          <Input placeholder="confirm password" type="text" required onChange={(e) => setPasswordAgain(e.target.value)} />
+          <Input placeholder="hasło" type="password" required onChange={(e) => setPassword(e.target.value)} />
+          <Input placeholder="powtórz hasło" type="password" required onChange={(e) => setPasswordAgain(e.target.value)} />
           <Agreement>
-            By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
-
+            
+            Tworząc konto wyrażasz zgodę na przetwarzanie danych oraz
+            ackeptujesz regulamin i politykę prywatności <b>POLITYKA PRYWATNOŚCI</b>
           </Agreement>
 
           <Button onClick={handleClick} disabled={isFetching || !isValid}>CREATE</Button>
@@ -144,7 +146,7 @@ const Register = () => {
           <TitleWrapper>
             <InfoBox>{error && <Error>{error}</Error>}    </InfoBox>
             <InfoBox>{messageSucces !== null && <Succes>{messageSucces}</Succes>} </InfoBox>
-            <InfoBox>{messageFail !== (false || null)  && <Error>{JSON.stringify(messageFail).slice(1,-1)}</Error>} </InfoBox>
+            <InfoBox>{messageFail !== false  && <Error>{JSON.stringify(messageFail).slice(1,-1)}</Error>} </InfoBox>
           </TitleWrapper>
         </Form>
       </Wrapper>

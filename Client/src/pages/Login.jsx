@@ -83,7 +83,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const { isFetching, error } = useSelector((state) => state.user)
  
-
+  
   const handleClick = (e) => {
     e.preventDefault()
     login(dispatch, { username, password })
@@ -95,16 +95,16 @@ const Login = () => {
 
       <Wrapper>
         <TitleWrapper>
-          <Title>SIGN IN</Title>
+          <Title>Zaloguj się</Title>
           <BackButton><Link to="/"><ArrowBackIosOutlinedIcon/></Link></BackButton>
         </TitleWrapper>
         <Form>
-          <Input placeholder="username" onChange={(e) => setUsername(e.target.value)} />
-          <Input placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+          <Input placeholder="login" onChange={(e) => setUsername(e.target.value)} />
+          <Input placeholder="hasło" onChange={(e) => setPassword(e.target.value)} />
           <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
-          {error && <Error>Something went wrong</Error>}
-          <Option><Link to="/">DO NOT YOU REMEMBER THE PASSWORD?</Link></Option>
-          <Option> <Link to="/register">CREATE A NEW ACCOUNT</Link></Option>
+          {error && <Error>Błędny login lub hasło</Error>}
+          <Option><Link to="/">Nie pamietasz hasla?</Link></Option>
+          <Option> <Link to="/register">Uwtórz konto</Link></Option>
         </Form>
 
       </Wrapper>

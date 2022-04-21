@@ -1,12 +1,12 @@
 import { Badge, } from "@material-ui/core";
 import { ShoppingCartOutlined } from "@material-ui/icons";
-import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
 import { logout } from "../redux/apiCalls";
+
 
 const Container = styled.div`
   background-color: #0A1A29;
@@ -27,9 +27,6 @@ const Left = styled.div`
   display: flex;
   align-items: center;
 `;
-
-
-
 
 const Center = styled.div`
   flex: 1;
@@ -59,39 +56,57 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
+const NavLink = styled(Link)`
+  text-decoration: none;
+`;
+
 
 
 const Navbar = () => {
-
+  
   const handleClick = (e) => {
     e.preventDefault()
     logout()
   }
-
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const toggling = () => setIsOpen(!isOpen);
   const quantity = useSelector(state => state.cart.quantity)
   const user = useSelector((state) => state.user.currentUser)
   return (
     <Container>
       <Wrapper>
         <Left>
-          <MenuItem>
+          {/* <MenuItem>
             {user && <ExitToAppOutlinedIcon onClick={handleClick} />}
           </MenuItem>
+        {user && <MenuItem onClick={handleClick}>Wyloguj się</MenuItem>} */}
 
         </Left>
         <Center>
-          <Link to="/" style={{ textDecoration: "none" }}><Logo>Shopp</Logo></Link>
+          <NavLink to="/"><Logo>Shopp</Logo></NavLink>
         </Center>
         <Right>
-          {!user && <Link to="/register" style={{ textDecoration: "none" }}><MenuItem>ZAŁÓŻ KONTO</MenuItem></Link>}
-          {!user && <Link to="/login" style={{ textDecoration: "none" }}><MenuItem>ZALOGUJ SIĘ</MenuItem></Link>}
+          {!user && <NavLink to="/register" ><MenuItem>ZAŁÓŻ KONTO</MenuItem></NavLink>}
+          {!user && <NavLink to="/login" ><MenuItem>ZALOGUJ SIĘ</MenuItem></NavLink>}
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined />
               </Badge>
             </MenuItem>
+
           </Link>
+          {user && <NavLink to="/account"><MenuItem>Moje Konto</MenuItem></NavLink> }
+          {user && <MenuItem onClick={handleClick}>Wyloguj się</MenuItem>}
+
+
+         
+
+          
+            
+          
+
         </Right>
       </Wrapper>
     </Container>

@@ -18,10 +18,12 @@ const userSlice = createSlice({
     reducers: {
         loginStart: (state) => {
             state.isFetching = true;
+            state.error = false;
         },
         loginSuccess: (state, action) => {
             state.isFetching = false;
             state.currentUser = action.payload;
+            state.error = false;
         },
         loginFailure: (state) => {
             state.isFetching = false;
@@ -29,19 +31,19 @@ const userSlice = createSlice({
         },
         registerStart: (state) => {
             state.isFetching = true;
-            state.messageSuccess = null;
-            state.messageFail = null;
+            state.messageSuccess = false;
+            state.messageFail = false;
         },
         registerSuccess: (state) => {
             state.isFetching = false;
             state.messageSucces= successInfo; 
-            state.messageFails= null; 
+            state.messageFails= false; 
 
         },
         registerFailure: (state,action) => {
             state.isFetching = false;
             state.messageFail= action.payload.error;
-            state.messageSucces= null; 
+            state.messageSucces= false; 
             
         },         
     },
