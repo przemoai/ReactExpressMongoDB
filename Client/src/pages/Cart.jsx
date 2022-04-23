@@ -162,6 +162,7 @@ const Button = styled.button`
 
 
 const Cart = () => {
+  const user = useSelector((state) => state.user.currentUser)
   const quantity = useSelector(state => state.cart.quantity)
   const cart = useSelector(state => state.cart)
 
@@ -181,6 +182,10 @@ const Cart = () => {
   const handleClick = () => {
     dispatch(clearCart())
 
+  }
+
+  const finalizeCart = () =>{
+    alert("ZAKUPY")
   }
 
   return (
@@ -248,7 +253,7 @@ const Cart = () => {
               <SummaryItemText>Suma</SummaryItemText>
               <SummaryItemPrice>{cart.total} zł</SummaryItemPrice>
             </SummaryItem>
-            <Button>Zapłać</Button>
+            <Button onClick={finalizeCart}>Zapłać</Button>
           </Summary>
         </Bottom>
       </Wrapper>
