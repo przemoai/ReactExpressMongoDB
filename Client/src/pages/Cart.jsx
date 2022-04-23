@@ -1,5 +1,5 @@
 import { Add, Remove } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom"
 import { clearCart } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import {useState} from "react"
 
 
 const Container = styled.div``;
@@ -93,8 +93,6 @@ const ProductColor = styled.div`
   border: 1px solid #000000;
 `;
 
-const ProductSize = styled.span``;
-
 const PriceDetail = styled.div`
   flex: 1;
   display: flex;
@@ -158,34 +156,63 @@ const Button = styled.button`
   color: white;
   font-weight: 600;
 `;
-
-
+const Error = styled.div`
+  flex:1;   
+  margin: 10px 15px 0px 0px;
+  padding: 10px;
+  color:red;
+  min-width: 100%;
+`
+const NavLink = styled(Link)`
+  color:red;
+  font-weight: 700;
+  text-decoration: none;
+`
 
 const Cart = () => {
   const user = useSelector((state) => state.user.currentUser)
   const quantity = useSelector(state => state.cart.quantity)
   const cart = useSelector(state => state.cart)
 
-  let shippingCost = 9.99 
+  let shippingCost = 9.99
   let shippingDiscount = 0
-  if(cart.total>300){
-    shippingDiscount=shippingCost;
-    shippingCost=0;
-  }else{
-    shippingDiscount=0
-    shippingCost=9.99
+  if (cart.total > 300) {
+    shippingDiscount = shippingCost;
+    shippingCost = 0;
+  } else {
+    shippingDiscount = 0
+    shippingCost = 9.99
   }
-  
-  
+
+
   const dispatch = useDispatch()
 
   const handleClick = () => {
     dispatch(clearCart())
-
   }
 
-  const finalizeCart = () =>{
-    alert("ZAKUPY")
+  // let cartEmpty = cart.total===0
+  // let addressSet = Object.keys(user.address).length!==0
+
+  const [cartEmpty,setCartEmpty]=useState(cart.total===0)
+  const [addressSet,setAddress]=useState(Object.keys(user.address).length!==0)
+
+  const finalizeCart = () => {   
+    if(cart.total!==0){
+      setCartEmpty(false)
+    }
+    if(Object.keys(user.address).length===0){
+      setAddress(false)
+    }
+
+
+    if (cartEmpty) {
+      alert("Koszyk jest pusty")
+    } else if (!addressSet) {
+      alert("Nie podano adresu")
+    } else {
+      alert("GRATULUJE ZAKUPU!")
+    }
   }
 
   return (
@@ -218,9 +245,6 @@ const Cart = () => {
                       <b>ID:</b> {product._id}
                     </ProductId>
                     <ProductColor color={product.color} />
-                    {/* <ProductSize>
-                      <b>Size:</b> {product.size}
-                    </ProductSize> */}
                   </Details>
                 </ProductDetail>
                 <PriceDetail>
@@ -242,8 +266,8 @@ const Cart = () => {
               <SummaryItemPrice>{cart.total} zł</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText>Koszta dostawy</SummaryItemText>                         
-              <SummaryItemPrice>{shippingCost} zł</SummaryItemPrice>              
+              <SummaryItemText>Koszta dostawy</SummaryItemText>
+              <SummaryItemPrice>{shippingCost} zł</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Zniżka</SummaryItemText>
@@ -254,6 +278,8 @@ const Cart = () => {
               <SummaryItemPrice>{cart.total} zł</SummaryItemPrice>
             </SummaryItem>
             <Button onClick={finalizeCart}>Zapłać</Button>
+            {!addressSet && <Error><NavLink to="/account">Musisz pierw uzupelnic adres</NavLink></Error>}
+
           </Summary>
         </Bottom>
       </Wrapper>
