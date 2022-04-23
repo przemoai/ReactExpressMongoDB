@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar";
 import ShippingAdress from "../components/ShippingAdress";
 import { mobile } from "../responsive";
 import {  useSelector } from "react-redux"
+import { useState } from "react";
+import OrderHistory from "../components/OrderHistory";
 
 
 
@@ -93,6 +95,22 @@ const Button = styled.button`
 
 const Account = () => {
   const user = useSelector((state) => state.user.currentUser)
+  const [shippingVisible, setShippingVisible] = useState(false)  
+  const [ordersVisible, setOrdersVisible] = useState(false)  
+
+  const setVisible=(e)=>{ 
+    console.log(e.target.id)
+    if(e.target.id=="address"){
+      setOrdersVisible(false)
+      setShippingVisible(!shippingVisible)
+    }
+    if(e.target.id=="orders"){
+      setShippingVisible(false)
+      setOrdersVisible(!ordersVisible)
+    }    
+    
+    
+  }
 
   return (
     <Container>
@@ -111,10 +129,11 @@ const Account = () => {
  
           <Info>
             
-            <Button>ZMIEN ADRES</Button>
-            <Button>HISTORIA ZAMOWIEN</Button>
+            <Button id="address" onClick={setVisible}>ZMIEN ADRES</Button>
+            <Button id="orders" onClick={setVisible}>HISTORIA ZAMOWIEN</Button>
 
-          <ShippingAdress></ShippingAdress>
+          {shippingVisible && <ShippingAdress></ShippingAdress>}
+          {ordersVisible && <OrderHistory></OrderHistory>}
           </Info>
 
           <Summary>
