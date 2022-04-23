@@ -9,7 +9,7 @@ const successInfo = "Zarejestrowano, przekierowanie za 2s";
 const userSlice = createSlice({
     name: "user",
     initialState: {
-        currentUser: null,              
+        currentUser: null,                      
         isFetching: false,
         error: false,
         messageSucces: false,
@@ -24,6 +24,9 @@ const userSlice = createSlice({
             state.isFetching = false;
             state.currentUser = action.payload;
             state.error = false;
+        },
+        addressUpdate: (state,action) =>{
+            state.currentUser.address = action.payload.address
         },
         loginFailure: (state) => {
             state.isFetching = false;
@@ -55,7 +58,8 @@ export const {
     loginFailure, 
     registerStart,
     registerSuccess,
-    registerFailure   
+    registerFailure,
+    addressUpdate   
 } = userSlice.actions
 
 export default userSlice.reducer;

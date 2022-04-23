@@ -113,8 +113,6 @@ const Register = () => {
     else {
       setError(null)
       register(dispatch, { name, lastname, username, email, password })
-
-
     }
 
 };

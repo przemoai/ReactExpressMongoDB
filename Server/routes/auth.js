@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
       return res.status(201).json(savedUser);
     }
   } catch (err) {
-    //return res.status(409).json({message:"Nazwa użytkownika jest już zajęta"});    
+     
     return res.status(500).json(err);
   }
 });

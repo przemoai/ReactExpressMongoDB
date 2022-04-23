@@ -172,16 +172,16 @@ const Product = () => {
           <Desc>
             {product.desc}
           </Desc>
-          <Price>{product.price} $</Price>
+          <Price>{product.price} zł</Price>
           <FilterContainer>
-            <Filter>
+            {/* <Filter>
               <FilterTitle>Color</FilterTitle>
 
               {product.color?.map((c) => (
                 <FilterColor color={c} key={c} onClick={() => setColor(c)} />
               ))}
 
-            </Filter>
+            </Filter> */}
             {/* <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize onChange={(e) => setSize(e.target.value)}>
