@@ -56,7 +56,7 @@ const ShippingAdress = () => {
   const isValidHouseNumber = /^[1-9]\d*(?: ?(?:[a-z]|[/-] ?\d+[a-z]?))?$/.test(houseNumber);
   const isValidZipCode = /^([0-9]{2}-)?[0-9]{3}$/.test(zipcode);  
   
-   let isFormValid = isValidCity && isValidStreet && isValidHouseNumber && isValidZipCode
+  let isFormValid = isValidCity && isValidStreet && isValidHouseNumber && isValidZipCode
   
 
   const handleClick = async (e) => {    
@@ -76,7 +76,7 @@ const ShippingAdress = () => {
   return( 
           <Container>
           <AccountTitle>Zmień adres</AccountTitle>
-            <Form >              
+            <Form>              
               <Input placeholder="miasto" type="text" required onChange={(e) => setCity(e.target.value)} />
               <Input placeholder="kod pocztowy        XX-XXX" maxLength="6" type="text" required onChange={(e) => setZipcode(e.target.value)} />
               <Input placeholder="ulica" type="text" required onChange={(e) => setstreet(e.target.value)} />

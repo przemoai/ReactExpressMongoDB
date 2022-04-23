@@ -2,7 +2,10 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { updateUserAddress } from "../redux/apiCalls";
-
+import { useEffect } from "react";
+import { publicRequest } from "../requestMethods";
+import { userOrders } from "../redux/userRedux";
+import Order from "./Order";
 const Container = styled.div`
   
 `;
@@ -42,16 +45,19 @@ flex:1;
 `
 
 const OrderHistory = () => {
+  const user = useSelector((state) => state.user)
+  const [Orders, setOrders] = useState([])  
   
-
-  return( 
-          <Container>
-          <AccountTitle>Historia zamówień</AccountTitle>
-            
-              TEST
-            
-          </Container>
-  )
+  return (
+    <Container>
+      {
+      user.orders.map((order,key) => 
+        (<Order order={order} key={order.id} /> )
+      )
+      
+      }
+    </Container>
+  );
 };
 
 

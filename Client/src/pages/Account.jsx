@@ -4,10 +4,10 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ShippingAdress from "../components/ShippingAdress";
 import { mobile } from "../responsive";
-import {  useSelector } from "react-redux"
+import {  useSelector,useDispatch } from "react-redux"
 import { useState } from "react";
 import OrderHistory from "../components/OrderHistory";
-
+import { getUserOrders } from "../redux/apiCalls";
 
 
 const Container = styled.div``;
@@ -97,16 +97,18 @@ const Account = () => {
   const user = useSelector((state) => state.user.currentUser)
   const [shippingVisible, setShippingVisible] = useState(false)  
   const [ordersVisible, setOrdersVisible] = useState(false)  
-
+  const dispatch = useDispatch()
   const setVisible=(e)=>{ 
-    console.log(e.target.id)
+    
     if(e.target.id=="address"){
       setOrdersVisible(false)
       setShippingVisible(!shippingVisible)
     }
     if(e.target.id=="orders"){
+      getUserOrders(dispatch,user)
       setShippingVisible(false)
       setOrdersVisible(!ordersVisible)
+      
     }    
     
     

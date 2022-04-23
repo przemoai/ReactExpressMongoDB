@@ -8,8 +8,10 @@ import {
     registerStart,
     registerSuccess,
     registerFailure,
-    addressUpdate
+    addressUpdate,
+    userOrders
 } from "./userRedux"
+
 
 export const login = async (dispatch, user) => {
     dispatch(loginStart())
@@ -20,6 +22,7 @@ export const login = async (dispatch, user) => {
         dispatch(loginFailure())
     }
 }
+
 
 export const register = async (dispatch, user) => {
     dispatch(registerStart())
@@ -36,21 +39,34 @@ export const register = async (dispatch, user) => {
     }
 }
 
-export const updateUserAddress = async(dispatch,userId,token,address)=>{
-    
-    try {        
-        const res = await publicRequest.put("/users/"+userId,{address},{
-            headers:{
+export const updateUserAddress = async (dispatch, userId, token, address) => {
+
+    try {
+        const res = await publicRequest.put("/users/" + userId, {
+            address
+        }, {
+            headers: {
                 'token': token
             }
         })
         dispatch(addressUpdate(res.data))
-        
+    } catch (err) {}
+}
+
+export const getUserOrders = async (dispatch, user)=>{
+    try{
+        const res = await publicRequest.get("http://localhost:5000/api/orders/find/"+user._id,{
+            headers:{
+                token: "Bearer "+user.accessToken
+            }
+        })
+        dispatch(userOrders(res.data))
     }catch(err){
 
     }
-
 }
+
+
 
 
 export const logout = () => {
