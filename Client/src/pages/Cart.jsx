@@ -9,7 +9,7 @@ import { Link } from "react-router-dom"
 import { clearCart } from "../redux/cartRedux";
 import {useState} from "react"
 import { makeOrder } from "../redux/apiCalls";
-import { incQuantity,decQuantity } from "../redux/cartRedux";
+import { incQuantity,decQuantity,changeQuantity } from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -220,15 +220,19 @@ const Cart = () => {
     }
   }
 
+  // const changeQuantityHandle = (itemId,action) => {
+  //   if(action==="inc"){
+  //     dispatch(incQuantity(itemId))
+  //   }
+  //   if(action==="dec"){
+  //     dispatch(decQuantity(itemId))
+  //   }        
+  // }
   const changeQuantityHandle = (itemId,action) => {
-    if(action==="inc"){
-      dispatch(incQuantity({itemId}))
-    }
-    if(action==="dec"){
-      dispatch(decQuantity(itemId))
-    }
+    dispatch(changeQuantity({itemId,action}))
     
-    
+      
+            
   }
 
   return (
