@@ -129,8 +129,6 @@ const Product = () => {
 
   const [product, setProduct] = useState({})
   const [quantity, setQuantity] = useState(1)
-  const [color, setColor] = useState("")
-  const [size, setSize] = useState("")
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -155,7 +153,7 @@ const Product = () => {
   }
 
   const handleClick = () => {
-    dispatch(addProduct({...product, quantity, color, size }))
+    dispatch(addProduct({...product, quantity}))
 
   }
 

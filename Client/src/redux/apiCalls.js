@@ -53,15 +53,41 @@ export const updateUserAddress = async (dispatch, userId, token, address) => {
     } catch (err) {}
 }
 
-export const getUserOrders = async (dispatch, user)=>{
-    try{
-        const res = await publicRequest.get("http://localhost:5000/api/orders/find/"+user._id,{
-            headers:{
-                token: "Bearer "+user.accessToken
+export const makeOrder = async (dispatch, userId, token, products, address,total) => {
+
+    try {
+        // console.log(userId)
+        // console.log(token)
+        // console.log(products)
+        // console.log(address)
+        // console.log(total)
+        const res = await publicRequest.post("/orders", {
+            userId,products,address,total
+        }, {
+            headers: {
+                'token': token
+            }
+        })
+        // dispatch(addressUpdate(res.data))
+        // console.log(res.data)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+
+
+
+export const getUserOrders = async (dispatch, user) => {
+    try {
+        const res = await publicRequest.get("http://localhost:5000/api/orders/find/" + user._id, {
+            headers: {
+                token: "Bearer " + user.accessToken
             }
         })
         dispatch(userOrders(res.data))
-    }catch(err){
+    } catch (err) {
 
     }
 }

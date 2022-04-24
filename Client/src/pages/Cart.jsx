@@ -8,7 +8,8 @@ import { mobile } from "../responsive";
 import { Link } from "react-router-dom"
 import { clearCart } from "../redux/cartRedux";
 import {useState} from "react"
-
+import { makeOrder } from "../redux/apiCalls";
+import { incQuantity,decQuantity } from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -174,6 +175,7 @@ const Cart = () => {
   const quantity = useSelector(state => state.cart.quantity)
   const cart = useSelector(state => state.cart)
 
+  
   let shippingCost = 9.99
   let shippingDiscount = 0
   if (cart.total > 300) {
@@ -205,14 +207,28 @@ const Cart = () => {
       setAddress(false)
     }
 
-
     if (cartEmpty) {
       alert("Koszyk jest pusty")
     } else if (!addressSet) {
       alert("Nie podano adresu")
     } else {
-      alert("GRATULUJE ZAKUPU!")
+      // alert("GRATULUJE ZAKUPU!")
+      const token = "Bearer "+user.accessToken
+      const userId = user._id   
+      makeOrder(dispatch,userId,token,cart.products,user.address,cart.total)
+    
     }
+  }
+
+  const changeQuantityHandle = (itemId,action) => {
+    if(action==="inc"){
+      dispatch(incQuantity({itemId}))
+    }
+    if(action==="dec"){
+      dispatch(decQuantity(itemId))
+    }
+    
+    
   }
 
   return (
@@ -249,11 +265,11 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
+                    <Add onClick={()=>{changeQuantityHandle(product._id,"inc")}}/>
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove />
+                    <Remove onClick={()=>{changeQuantityHandle(product._id,"dec")}}/>
                   </ProductAmountContainer>
-                  <ProductPrice>{product.price * product.quantity} zł</ProductPrice>
+                  <ProductPrice>{product.price} zł</ProductPrice>
                 </PriceDetail>
               </Product>
             ))}

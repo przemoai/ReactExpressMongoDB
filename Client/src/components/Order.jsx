@@ -32,12 +32,12 @@ const Order = ({ order }) => {
   return (
     <Container>
 
-      {console.log(order) }
+      {/* {console.log(order) } */}
       {order._id}
       
 
       <br></br>Produkty:
-      {order.products.map((product)=>(<li key={product.id}>{product._id}</li>))}
+      {order.products.map((product)=>(<li key={product._id}>{product.title}</li>))}
 
       
 
