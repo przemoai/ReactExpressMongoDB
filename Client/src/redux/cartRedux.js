@@ -21,56 +21,26 @@ const cartSlice = createSlice({
             } else {
 
                 state.products.push(action.payload)
-            } 
+            }
             state.quantity += action.payload.quantity
             state.total += action.payload.price * action.payload.quantity
-        },
-        incQuantity: (state, action) => {
-            const item = state.products.find((product) => product._id === action.payload);
-            if (item) {
-                console.log("ZWIEKSZAM o 1")
-                item.quantity += 1
-                state.quantity += 1
-                state.total += item.price
-            }
-        },
-        decQuantity: (state, action) => {
-            const item = state.products.find((product) => product._id === action.payload);
-            if (item && item.quantity > 1) {
-                console.log("ZMNIEJSZAM o 1")
-                item.quantity -= 1
-                state.quantity -= 1
-                state.total -= item.price
-            }
-
         },
         changeQuantity: (state, action) => {
 
             const item = state.products.find((product) => product._id === action.payload.itemId);
             console.log(action.payload.action)
             if (item) {
-                if (action.payload.action === "inc") {
-
-                    console.log("ZWIEKSZAM o 1")
+                if (action.payload.action === "inc") {                   
                     item.quantity += 1
                     state.quantity += 1
                     state.total += item.price
                 }
-                if (action.payload.action === "dec" && item.quantity > 1) {
-                    console.log("ZMNIEJSZAM o 1")
+                if (action.payload.action === "dec" && item.quantity > 1) {                    
                     item.quantity -= 1
                     state.quantity -= 1
                     state.total -= item.price
                 }
             }
-
-            // if(item && item.quantity>1){
-            //     console.log("ZMNIEJSZAM o 1")
-            //     item.quantity -= 1
-            //     state.quantity-=1
-            //     state.total-=item.price
-            // }
-
         },
         clearCart: (state) => {
             state.quantity = 0
@@ -83,8 +53,6 @@ const cartSlice = createSlice({
 export const {
     addProduct,
     clearCart,
-    incQuantity,
-    decQuantity,
     changeQuantity
 } = cartSlice.actions
 export default cartSlice.reducer;

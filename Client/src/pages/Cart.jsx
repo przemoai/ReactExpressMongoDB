@@ -1,5 +1,5 @@
 import { Add, Remove } from "@material-ui/icons";
-import { useSelector, useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -7,9 +7,9 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom"
 import { clearCart } from "../redux/cartRedux";
-import {useState} from "react"
+import { useState } from "react"
 import { makeOrder } from "../redux/apiCalls";
-import { incQuantity,decQuantity,changeQuantity } from "../redux/cartRedux";
+import { changeQuantity } from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -175,7 +175,7 @@ const Cart = () => {
   const quantity = useSelector(state => state.cart.quantity)
   const cart = useSelector(state => state.cart)
 
-  
+
   let shippingCost = 9.99
   let shippingDiscount = 0
   if (cart.total > 300) {
@@ -196,14 +196,14 @@ const Cart = () => {
   // let cartEmpty = cart.total===0
   // let addressSet = Object.keys(user.address).length!==0
 
-  const [cartEmpty,setCartEmpty]=useState(cart.total===0)
-  const [addressSet,setAddress]=useState(Object.keys(user.address).length!==0)
+  const [cartEmpty, setCartEmpty] = useState(cart.total === 0)
+  const [addressSet, setAddress] = useState(Object.keys(user.address).length !== 0)
 
-  const finalizeCart = () => {   
-    if(cart.total!==0){
+  const finalizeCart = () => {
+    if (cart.total !== 0) {
       setCartEmpty(false)
     }
-    if(Object.keys(user.address).length===0){
+    if (Object.keys(user.address).length === 0) {
       setAddress(false)
     }
 
@@ -213,26 +213,15 @@ const Cart = () => {
       alert("Nie podano adresu")
     } else {
       // alert("GRATULUJE ZAKUPU!")
-      const token = "Bearer "+user.accessToken
-      const userId = user._id   
-      makeOrder(dispatch,userId,token,cart.products,user.address,cart.total)
-    
+      const token = "Bearer " + user.accessToken
+      const userId = user._id
+      makeOrder(dispatch, userId, token, cart.products, user.address, cart.total)
+
     }
   }
 
-  // const changeQuantityHandle = (itemId,action) => {
-  //   if(action==="inc"){
-  //     dispatch(incQuantity(itemId))
-  //   }
-  //   if(action==="dec"){
-  //     dispatch(decQuantity(itemId))
-  //   }        
-  // }
-  const changeQuantityHandle = (itemId,action) => {
-    dispatch(changeQuantity({itemId,action}))
-    
-      
-            
+  const changeQuantityHandle = (itemId, action) => {
+    dispatch(changeQuantity({ itemId, action }))
   }
 
   return (
@@ -269,9 +258,9 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add onClick={()=>{changeQuantityHandle(product._id,"inc")}}/>
+                    <Add onClick={() => { changeQuantityHandle(product._id, "inc") }} />
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove onClick={()=>{changeQuantityHandle(product._id,"dec")}}/>
+                    <Remove onClick={() => { changeQuantityHandle(product._id, "dec") }} />
                   </ProductAmountContainer>
                   <ProductPrice>{product.price} zł</ProductPrice>
                 </PriceDetail>
