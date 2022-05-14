@@ -46,15 +46,19 @@ flex:1;
 
 const OrderHistory = () => {
   const user = useSelector((state) => state.user)
-  const [Orders, setOrders] = useState([])  
-  
+  // const [Orders, setOrders] = useState([])
+
   return (
     <Container>
       {
-      user.orders.map((order,key) => 
-        (<Order order={order} key={order.id} /> )
-      )
-      
+
+        user.orders && user.orders.map((order, key) =>
+          (<Order order={order} key={order.id} />)
+        )
+
+
+
+
       }
     </Container>
   );

@@ -10,7 +10,8 @@ import { clearCart } from "../redux/cartRedux";
 import { useState } from "react"
 import { makeOrder } from "../redux/apiCalls";
 import { changeQuantity } from "../redux/cartRedux";
-import { useNavigate } from "react-router-dom";
+import ShippingSummary from "../components/ShippingSummary";
+
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -165,12 +166,12 @@ const Error = styled.div`
   min-width: 100%;
 `
 const NavLink = styled(Link)`
-  color:white;
+  color:red;
   font-weight: 700;
   text-decoration: none;
 `
 
-const Cart = () => {
+const Finalize = () => {
   const user = useSelector((state) => state.user.currentUser)
   const quantity = useSelector(state => state.cart.quantity)
   const cart = useSelector(state => state.cart)
@@ -224,12 +225,6 @@ const Cart = () => {
     dispatch(changeQuantity({ itemId, action }))
   }
 
-  let navigate = useNavigate();
-  const goToFinalize = () => {
-    let path = `finalize`;
-    navigate(path);
-  }
-
   return (
     <Container>
       <Navbar />
@@ -237,12 +232,12 @@ const Cart = () => {
       <Wrapper>
         <Title>Twój koszyk</Title>
         <Top>
-          <TopButton><Link to="/" style={{ textDecoration: "none" }}>Kontynuuj zakupy</Link></TopButton>
+          <TopButton><Link to="/Cart" style={{ textDecoration: "none" }}>Wróc do poprzedniej strony</Link></TopButton>
           <TopTexts>
             <TopText>Koszyk({quantity})</TopText>
           </TopTexts>
 
-          <TopButton type="filled" onClick={handleClick}>Wyczyść koszyk</TopButton>
+          {/* <TopButton type="filled" onClick={handleClick}>Wyczyść koszyk</TopButton> */}
 
         </Top>
         <Bottom>
@@ -273,6 +268,9 @@ const Cart = () => {
             ))}
             <Hr />
           </Info>
+
+          <ShippingSummary></ShippingSummary>
+
           <Summary>
             <SummaryTitle>Podsumowanie koszyka</SummaryTitle>
             <SummaryItem>
@@ -291,7 +289,7 @@ const Cart = () => {
               <SummaryItemText>Suma</SummaryItemText>
               <SummaryItemPrice>{cart.total} zł</SummaryItemPrice>
             </SummaryItem>
-            <Button disabled={cart.total === 0} onClick={goToFinalize}>Finalizuj zamówienie</Button>
+            <Button onClick={finalizeCart}>Zapłać</Button>
             {!addressSet && <Error><NavLink to="/account">Musisz pierw uzupelnic adres</NavLink></Error>}
 
           </Summary>
@@ -302,4 +300,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Finalize;

@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -126,7 +126,7 @@ const Button = styled.button`
 const Product = () => {
   const location = useLocation()
   const id = location.pathname.split("/")[2]
-
+  const user = useSelector((state) => state.user.currentUser)
   const [product, setProduct] = useState({})
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
@@ -197,7 +197,7 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
-            <Button onClick={handleClick}>Dodaj do koszyka</Button>
+            <Button disabled={!user} onClick={handleClick}>Dodaj do koszyka</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

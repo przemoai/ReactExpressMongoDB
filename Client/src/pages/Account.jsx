@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ShippingAdress from "../components/ShippingAdress";
 import { mobile } from "../responsive";
-import {  useSelector,useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useState } from "react";
 import OrderHistory from "../components/OrderHistory";
 import { getUserOrders } from "../redux/apiCalls";
@@ -95,23 +95,23 @@ const Button = styled.button`
 
 const Account = () => {
   const user = useSelector((state) => state.user.currentUser)
-  const [shippingVisible, setShippingVisible] = useState(false)  
-  const [ordersVisible, setOrdersVisible] = useState(false)  
+  const [shippingVisible, setShippingVisible] = useState(false)
+  const [ordersVisible, setOrdersVisible] = useState(false)
   const dispatch = useDispatch()
-  const setVisible=(e)=>{ 
-    
-    if(e.target.id=="address"){
+  const setVisible = (e) => {
+
+    if (e.target.id == "address") {
       setOrdersVisible(false)
       setShippingVisible(!shippingVisible)
     }
-    if(e.target.id=="orders"){
-      getUserOrders(dispatch,user)
+    if (e.target.id == "orders") {
+      getUserOrders(dispatch, user)
       setShippingVisible(false)
       setOrdersVisible(!ordersVisible)
-      
-    }    
-    
-    
+
+    }
+
+
   }
 
   return (
@@ -121,21 +121,21 @@ const Account = () => {
       <Wrapper>
         <Title>{user.name}</Title>
         <Top>
-         
+
           <TopTexts>
             <TopText></TopText>
           </TopTexts>
 
         </Top>
         <Bottom>
- 
+
           <Info>
-            
+
             <Button id="address" onClick={setVisible}>ZMIEN ADRES</Button>
             <Button id="orders" onClick={setVisible}>HISTORIA ZAMOWIEN</Button>
 
-          {shippingVisible && <ShippingAdress></ShippingAdress>}
-          {ordersVisible && <OrderHistory></OrderHistory>}
+            {shippingVisible && <ShippingAdress></ShippingAdress>}
+            {ordersVisible && <OrderHistory></OrderHistory>}
           </Info>
 
           <Summary>

@@ -63,12 +63,12 @@ const NavLink = styled(Link)`
 
 
 const Navbar = () => {
-  
+
   const handleClick = (e) => {
     e.preventDefault()
     logout()
   }
-  
+
   const [isOpen, setIsOpen] = useState(false);
   const toggling = () => setIsOpen(!isOpen);
   const quantity = useSelector(state => state.cart.quantity)
@@ -89,23 +89,25 @@ const Navbar = () => {
         <Right>
           {!user && <NavLink to="/register" ><MenuItem>ZAŁÓŻ KONTO</MenuItem></NavLink>}
           {!user && <NavLink to="/login" ><MenuItem>ZALOGUJ SIĘ</MenuItem></NavLink>}
-          <Link to="/cart">
+          {user && <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined />
               </Badge>
             </MenuItem>
+          </Link>}
 
-          </Link>
-          {user && <NavLink to="/account"><MenuItem>Moje Konto</MenuItem></NavLink> }
+
+
+          {user && <NavLink to="/account"><MenuItem>Moje Konto</MenuItem></NavLink>}
           {user && <MenuItem onClick={handleClick}>Wyloguj się</MenuItem>}
 
 
-         
 
-          
-            
-          
+
+
+
+
 
         </Right>
       </Wrapper>
