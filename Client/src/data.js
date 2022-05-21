@@ -8,7 +8,7 @@ export const sliderItems = [
     },
     {
       id: 2,
-      img: "",
+      img: "https://i.ibb.co/7SCVmRL/maxresdefault.jpg",
       title: "Nowe klawiatury już są!",
       desc: "Sprawdz naszą ofertę! ",
       bg: "fcf1ed",

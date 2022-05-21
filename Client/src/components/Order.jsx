@@ -32,15 +32,16 @@ const Order = ({ order }) => {
   return (
     <Container>
 
-      {/* {console.log(order) } */}
-      {order._id}
+      Numer zamówienia: <b>{order._id}</b>
+     
       
 
       <br></br>Produkty:
-      {order.products.map((product)=>(<li key={product._id}>{product.title}</li>))}
-
-      
-
+      {order.products.map((product)=>(
+        <li key={product._id}>
+          {product.title}
+        </li>))}
+    
       Status: {order.status}
 
     </Container>

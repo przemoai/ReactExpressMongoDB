@@ -84,6 +84,7 @@ const SummaryItemText = styled.span``;
 const SummaryItemValue = styled.span``;
 
 const Button = styled.button`
+  margin-right:5px;
   width: 40%;
   padding: 20px;
   background-color: black;
@@ -119,7 +120,7 @@ const Account = () => {
       <Navbar />
       <Announcement />
       <Wrapper>
-        <Title>{user.name}</Title>
+        <Title>Witaj {user.name}!</Title>
         <Top>
 
           <TopTexts>

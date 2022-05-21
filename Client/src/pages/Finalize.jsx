@@ -1,4 +1,3 @@
-import { Add, Remove } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
@@ -11,7 +10,7 @@ import { useState } from "react"
 import { makeOrder } from "../redux/apiCalls";
 import { changeQuantity } from "../redux/cartRedux";
 import ShippingSummary from "../components/ShippingSummary";
-
+import { Alert } from '@mui/material';
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -86,14 +85,6 @@ const Details = styled.div`
 const ProductName = styled.span``;
 
 const ProductId = styled.span``;
-
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-  border: 1px solid #000000;
-`;
 
 const PriceDetail = styled.div`
   flex: 1;
@@ -170,6 +161,7 @@ const NavLink = styled(Link)`
   font-weight: 700;
   text-decoration: none;
 `
+
 
 const Finalize = () => {
   const user = useSelector((state) => state.user.currentUser)
@@ -285,7 +277,9 @@ const Finalize = () => {
               <SummaryItemPrice>{cart.total} zł</SummaryItemPrice>
             </SummaryItem>
             <Button onClick={finalizeCart}>Zapłać</Button>
-            {!addressSet && <Error><NavLink to="/account">Musisz pierw uzupelnic adres</NavLink></Error>}
+            {!addressSet && <Alert variant="outlined" severity="error" style={{ marginTop: "5px" }}><NavLink to="/account">Musisz pierw uzupelnic adres</NavLink></Alert>}
+            
+                    
           </Summary>  
 
         </Bottom>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { sliderItems } from "../data";
 import { mobile } from "../responsive";
-
+import { Link } from 'react-router-dom'
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -79,6 +79,11 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const NavLink = styled(Link)`
+  color:red;
+  font-weight: 700;
+  text-decoration: none;
+`
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = (direction) => {
@@ -103,7 +108,7 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>KUP TERAZ</Button>
+              <NavLink to="/products"><Button>KUP TERAZ</Button></NavLink>
             </InfoContainer>
           </Slide>
         ))}

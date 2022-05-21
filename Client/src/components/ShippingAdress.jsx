@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { updateUserAddress } from "../redux/apiCalls";
-
+import { Alert } from "@mui/material";
 const Container = styled.div`
   
 `;
@@ -33,12 +33,19 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
-const Error = styled.span`
-flex:1;   
+const Error = styled.div`
+  flex:1;   
   margin: 0px 10px 0px 0px;
   padding: 10px;
   color:red;
-  min-width: 100%;
+  min-width: 60%;
+  
+`
+const ErrorBox= styled.div`
+  flex-basis:100%;  
+`
+const ErrorContent = styled.div`
+  width:40%
 `
 
 const ShippingAdress = () => {
@@ -83,13 +90,16 @@ const ShippingAdress = () => {
               <Input placeholder="nr domu                 XX/X " type="mail" required onChange={(e) => setHouserNumber(e.target.value)} />
               <Button onClick={handleClick} disabled={isFetching} >Zmień</Button>
               
+             
+              <ErrorBox> 
+                <ErrorContent>      
+              {(!isValidCity && validationCheck) && <Error><Alert severity="error" variant="outlined">Błędny format miasta</Alert></Error>}
+              {(!isValidZipCode && validationCheck) && <Error><Alert severity="error" variant="outlined">Kod pocztowy powinienen wygladac tak XX-XXX</Alert></Error>}              
+              {(!isValidStreet && validationCheck) && <Error><Alert severity="error" variant="outlined">Błędny format ulicy</Alert></Error>}
+              {(!isValidHouseNumber && validationCheck) && <Error><Alert severity="error" variant="outlined">Błędny format nr domu</Alert></Error>} 
+                </ErrorContent>  
+              </ErrorBox> 
 
-              
-              {/*  WYEKSPORTUJ DO FUNCKCJI GENEROWANIE ERRORU */}
-              {(!isValidCity && validationCheck) && <Error>Miasto</Error>}
-              {(!isValidZipCode && validationCheck) && <Error>Kod pocztowy powinienen wygladac tak XX-XXX</Error>}              
-              {(!isValidStreet && validationCheck) && <Error>Ulica</Error>}
-              {(!isValidHouseNumber && validationCheck) && <Error>Nr domu</Error>} 
             </Form>
           </Container>
   )

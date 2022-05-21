@@ -54,7 +54,7 @@ const ProductList = () => {
         <Filter>
           <FilterText>Sortuj Produkty:</FilterText>
           <Select onChange={e=>setSort(e.target.value)}>
-            <Option value="newest">Najnowsze</Option>
+            
             <Option value="asc">Cena (Rosnąco)</Option>
             <Option value="desc">Cena (Malejąco)</Option>
           </Select>
