@@ -4,6 +4,7 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
+import { Alert } from '@mui/material';
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react";
@@ -123,12 +124,20 @@ const Button = styled.button`
   }
 `;
 
+const AlertBox = styled.div`
+  min-width: 15vh;
+  margin-top: 5%;
+  width: 50%;
+`
+
+
 const Product = () => {
   const location = useLocation()
   const id = location.pathname.split("/")[2]
   const user = useSelector((state) => state.user.currentUser)
   const [product, setProduct] = useState({})
   const [quantity, setQuantity] = useState(1)
+  const [addedToCart, setAddedToCart] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -152,9 +161,10 @@ const Product = () => {
     }
   }
 
+  
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity }))
-
+    setAddedToCart(true)
   }
 
   return (
@@ -171,26 +181,7 @@ const Product = () => {
             {product.desc}
           </Desc>
           <Price>{product.price} zł</Price>
-          <FilterContainer>
-            {/* <Filter>
-              <FilterTitle>Color</FilterTitle>
 
-              {product.color?.map((c) => (
-                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
-              ))}
-
-            </Filter> */}
-            {/* <Filter>
-              <FilterTitle>Size</FilterTitle>
-              <FilterSize onChange={(e) => setSize(e.target.value)}>
-
-                {product.size?.map((s) => (
-                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
-                ))}
-
-              </FilterSize>
-            </Filter> */}
-          </FilterContainer>
           <AddContainer>
             <AmountContainer>
               <Remove onClick={() => handleQuantity("dec")} />
@@ -199,6 +190,13 @@ const Product = () => {
             </AmountContainer>
             <Button disabled={!user} onClick={handleClick}>Dodaj do koszyka</Button>
           </AddContainer>
+          <AlertBox>
+          { addedToCart&&
+            <Alert visible="false" variant="outlined" severity="success">
+            Pomyślnie dodano do koszyka 
+          </Alert>}
+          </AlertBox>
+         
         </InfoContainer>
       </Wrapper>
       <Newsletter />

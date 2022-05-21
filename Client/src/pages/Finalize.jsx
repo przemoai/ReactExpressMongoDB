@@ -233,14 +233,10 @@ const Finalize = () => {
         <Title>Twój koszyk</Title>
         <Top>
           <TopButton><Link to="/Cart" style={{ textDecoration: "none" }}>Wróc do poprzedniej strony</Link></TopButton>
-          <TopTexts>
-            <TopText>Koszyk({quantity})</TopText>
-          </TopTexts>
-
-          {/* <TopButton type="filled" onClick={handleClick}>Wyczyść koszyk</TopButton> */}
-
+              
         </Top>
         <Bottom>
+          
           <Info>
             {cart.products.map(product => (
 
@@ -258,17 +254,16 @@ const Finalize = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add onClick={() => { changeQuantityHandle(product._id, "inc") }} />
-                    <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove onClick={() => { changeQuantityHandle(product._id, "dec") }} />
+                    
+                    <ProductAmount>Ilość: {product.quantity}</ProductAmount>
+                    
                   </ProductAmountContainer>
-                  <ProductPrice>{product.price} zł</ProductPrice>
+                  <ProductPrice>{product.price*product.quantity} zł</ProductPrice>
                 </PriceDetail>
               </Product>
             ))}
             <Hr />
           </Info>
-
           <ShippingSummary></ShippingSummary>
 
           <Summary>
@@ -291,9 +286,10 @@ const Finalize = () => {
             </SummaryItem>
             <Button onClick={finalizeCart}>Zapłać</Button>
             {!addressSet && <Error><NavLink to="/account">Musisz pierw uzupelnic adres</NavLink></Error>}
+          </Summary>  
 
-          </Summary>
         </Bottom>
+
       </Wrapper>
       <Footer />
     </Container>

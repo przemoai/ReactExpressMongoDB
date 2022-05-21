@@ -5,6 +5,7 @@ import { mobile } from "../responsive";
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 import { Link } from 'react-router-dom'
 import { register } from "../redux/apiCalls";
+import { Alert } from '@mui/material';
 
 const Container = styled.div`
   width: 100vw;
@@ -72,23 +73,11 @@ const Button = styled.button`
 `;
 
 const InfoBox = styled.div`
+margin-left: 5px;
   display:flex;  
   font-size: 16px;
 `
 
-const Error = styled.span`
-flex:1;   
-  margin: 0px 10px 0px 0px;
-  padding: 10px;
-  color:red;
-`
-
-const Succes = styled.span`  
-flex:1;    
-  margin: 0px 10px 0px 0px;
-  padding: 10px;
-  color:green;
-`
 
 
 
@@ -102,9 +91,16 @@ const Register = () => {
   const [passwordAgain, setPasswordAgain] = useState(null);
   const [error, setError] = useState(null);
   const dispatch = useDispatch()
-  const { isFetching, messageSucces, messageFail } = useSelector((state) => state.user)
+  const { isFetching, messageSuccess, messageFail } = useSelector((state) => state.user)
 
-  const isValid = email != null && email.trim().length > 0;
+  const nameValid =     name      != null && name.trim().length > 0
+  const lastnameValid = lastname  != null && lastname.trim().length > 0
+  const mailValid =     email     != null && email.trim().length > 0
+  const usernameValid = username  != null && username.trim().length > 0
+  const passwordValid = password  != null && password.trim().length > 0
+
+
+  const isValid = nameValid && mailValid && usernameValid && lastnameValid && passwordValid
   const handleClick = async (e) => {
     e.preventDefault();
     if (password !== passwordAgain) {
@@ -115,7 +111,7 @@ const Register = () => {
       register(dispatch, { name, lastname, username, email, password })
     }
 
-};
+  };
 
 
 
@@ -134,17 +130,29 @@ const Register = () => {
           <Input placeholder="hasło" type="password" required onChange={(e) => setPassword(e.target.value)} />
           <Input placeholder="powtórz hasło" type="password" required onChange={(e) => setPasswordAgain(e.target.value)} />
           <Agreement>
-            
+
             Tworząc konto wyrażasz zgodę na przetwarzanie danych oraz
             ackeptujesz regulamin i politykę prywatności <b>POLITYKA PRYWATNOŚCI</b>
           </Agreement>
 
           <Button onClick={handleClick} disabled={isFetching || !isValid}>CREATE</Button>
 
-          <TitleWrapper>
-            <InfoBox>{error && <Error>{error}</Error>}    </InfoBox>
-            <InfoBox>{messageSucces !== null && <Succes>{messageSucces}</Succes>} </InfoBox>
-            <InfoBox>{messageFail !== false  && <Error>{JSON.stringify(messageFail).slice(1,-1)}</Error>} </InfoBox>
+          <TitleWrapper>          
+
+            <InfoBox>{error && <Alert variant="outlined" severity="error">
+                      {error}
+                    </Alert>}    </InfoBox>
+            
+            <InfoBox>{messageSuccess !== false && <Alert variant="outlined" severity="success">
+                      {messageSuccess}
+                    </Alert>} </InfoBox>
+                       
+            {messageFail !== false &&<InfoBox>
+                    <Alert variant="outlined" severity="error">
+                      {messageFail}
+                    </Alert>
+             
+            </InfoBox> }
           </TitleWrapper>
         </Form>
       </Wrapper>

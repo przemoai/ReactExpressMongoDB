@@ -13,7 +13,7 @@ const userSlice = createSlice({
         orders:null,                      
         isFetching: false,
         error: false,
-        messageSucces: false,
+        messageSuccess: false,
         messageFail: false,
     },
     reducers: {
@@ -43,14 +43,14 @@ const userSlice = createSlice({
         },
         registerSuccess: (state) => {
             state.isFetching = false;
-            state.messageSucces= successInfo; 
-            state.messageFails= false; 
+            state.messageSuccess= successInfo; 
+            state.messageFail= false; 
 
         },
         registerFailure: (state,action) => {
             state.isFetching = false;
             state.messageFail= action.payload.error;
-            state.messageSucces= false; 
+            state.messageSuccess= false; 
             
         },         
     },
